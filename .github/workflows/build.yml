@@ -1,0 +1,19 @@
+name: build
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  dist:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build tarball in ubuntu:26.04 (runs test/smoke.rb)
+        run: make dist
+      - uses: actions/upload-artifact@v4
+        with:
+          name: moment-bot
+          path: dist/
+          retention-days: 90

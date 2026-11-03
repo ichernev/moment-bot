@@ -14,7 +14,7 @@ class CITutorial < Sinatra::Base
   end
 
   get '/' do
-    "moment-bot: source at https://github.com/marwahaha/moment-bot"
+    "moment-bot: source at https://github.com/ichernev/moment-bot"
   end
 
   post '/event_handler' do

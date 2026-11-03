@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+# Runs the app from the standalone bundle in vendor/bundle (no bundler needed at runtime).
+require_relative "../vendor/bundle/bundler/setup"
+require "puma/cli"
+
+app_root = File.expand_path("..", __dir__)
+bind = ENV.fetch("BIND", "tcp://127.0.0.1:9292")
+Puma::CLI.new(["--environment", ENV.fetch("RACK_ENV", "production"), "--bind", bind,
+               "--threads", "1:4", File.join(app_root, "config.ru")]).run
