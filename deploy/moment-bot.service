@@ -1,0 +1,35 @@
+# /etc/systemd/system/moment-bot.service — app unpacked into /opt/moment-bot by `make deploy`
+[Unit]
+Description=moment-bot server
+After=network.target
+
+[Service]
+Type=simple
+DynamicUser=yes
+EnvironmentFile=/etc/moment-bot.env
+Environment=RACK_ENV=production
+WorkingDirectory=/opt/moment-bot
+ExecStart=/usr/bin/ruby /opt/moment-bot/bin/server
+Restart=on-failure
+
+ProtectHome=yes
+ProtectSystem=strict
+PrivateTmp=yes
+NoNewPrivileges=yes
+PrivateDevices=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectKernelLogs=yes
+ProtectControlGroups=yes
+ProtectClock=yes
+ProtectHostname=yes
+RestrictNamespaces=yes
+RestrictRealtime=yes
+RestrictSUIDSGID=yes
+LockPersonality=yes
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+SystemCallArchitectures=native
+MemoryMax=200M
+
+[Install]
+WantedBy=multi-user.target
